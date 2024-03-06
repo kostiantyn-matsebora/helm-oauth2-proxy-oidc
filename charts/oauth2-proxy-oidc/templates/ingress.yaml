@@ -1,5 +1,4 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "oidc-auth2.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -15,7 +14,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "oidc-auth2.servicename" .}}
   labels:
     {{- include "oidc-auth2.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -34,7 +33,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "oidc-auth2.fullname" . }}
+                name: {{ include "oidc-auth2.servicename" . }}
                 port:
                   number: {{ .Values.service.port }}
 {{- end }}

@@ -1,0 +1,23 @@
+name: Helm
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'charts/**'
+  workflow_dispatch:
+      
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish Helm chart
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.HELM_BOT_GH_TOKEN }}
+          charts_dir: charts
+          charts_url: https://kostiantyn-matsebora.github.io/helm-charts
+          owner: kostiantyn-matsebora
+          repository: helm-charts
+          branch: master
