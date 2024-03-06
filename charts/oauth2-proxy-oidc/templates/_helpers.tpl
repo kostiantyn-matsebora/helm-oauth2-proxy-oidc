@@ -23,6 +23,9 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 {{- end }}
 
+{{- define "oidc-auth2.servicename" -}}
+    {{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- end }}
 {{/*
 Create chart name and version as used by the chart label.
 */}}
