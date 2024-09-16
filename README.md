@@ -1,12 +1,12 @@
 # Helm chart of [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy) using OIDC provider
 
-Repository contains helm chart can be used to deploy [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy) configured to use `OIDC provider` for user authentication.
+The repository contains a helm chart that can be used to deploy [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy) configured to use `OIDC provider` for user authentication.
 
 ## Configuration
 
 ```yaml
 ingress:
-    host: # Host name of ingress object, take into account that new ingress object will be created to handle request to /oauth2 path.
+    host: # Host name of ingress object, consider that a new ingress object will be created to handle a request to /oauth2 path.
  
 # OIDC provider configuration
 oidc:
@@ -23,7 +23,7 @@ oidc:
     extraArgs: []
 ```
 
-More configuration options you can find in [chart/values.yaml](./chart/values.yaml).
+More configuration options can be found in [chart/values.yaml](./chart/values.yaml).
 
 ## Example
 
