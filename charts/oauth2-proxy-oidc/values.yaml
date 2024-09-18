@@ -79,3 +79,6 @@ oidc:
   #   - --cookie-expire=30m
   #   - --code-challenge-method=S256
   extraArgs: []
+
+# Name of the runtime class to use for this pod https://kubernetes.io/docs/concepts/containers/runtime-class/
+runtimeClassName:
