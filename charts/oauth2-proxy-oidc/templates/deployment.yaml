@@ -17,11 +17,11 @@ spec:
       {{- end }}
       labels:
         {{- include "oidc-auth2.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
+        {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- if .Values.runtimeClassName -}}
+      {{- if .Values.runtimeClassName }}
       runtimeClassName: {{ .Values.runtimeClassName }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
