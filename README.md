@@ -1,4 +1,4 @@
-# Helm chart of [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy) using OIDC provider
+# [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy) using OIDC provider
 
 The repository contains a helm chart that can be used to deploy [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy) configured to use `OIDC provider` for user authentication.
 
