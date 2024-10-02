@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths:
       - 'charts/**'
+    types: [opened, synchronize, reopened]
 jobs:
   publish:  
     name: Verify
