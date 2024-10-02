@@ -11,10 +11,21 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:   
-      - name: Generate docs
-        uses: shaybentk/helm-docs-action@v0.0.1
+      - name: Verify Chart.yaml has been changed
+        uses: tj-actions/verify-changed-files@v20
+        id: verify-changed-files
+        with:
+          files: |
+             **/Chart.yaml
+      - name: Fail if Chart.yaml has not been changed
+        if: not(contains(steps.verify-changed-files.outputs.changed_files, 'Chart.yaml'))
+        run: throw "Chart.yaml has not been changed."
+      - name: Copy README.md to chart        
+        run: cp README.md charts/simple-oauth2-proxy/
+        if: github.ref == 'refs/heads/master'
       - name: Publish Helm chart
-        uses: stefanprodan/helm-gh-pages@master
+        if: github.ref == 'refs/heads/master'
+        uses: stefanprodan/helm-gh-pages@master        
         with:
           token: ${{ secrets.HELM_BOT_GH_TOKEN }}
           charts_dir: charts
