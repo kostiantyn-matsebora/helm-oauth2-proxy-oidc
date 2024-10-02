@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:      
       - name: Copy README.md to chart        
-        run: ls
+        run: echo $(pwd)
       - name: Publish Helm chart
         if: github.ref == 'refs/heads/master'
         uses: stefanprodan/helm-gh-pages@master        
@@ -24,4 +24,4 @@ jobs:
           charts_url: https://kostiantyn-matsebora.github.io/helm-charts
           owner: kostiantyn-matsebora
           repository: helm-charts
-          branch: master
+          branch: masterecho
