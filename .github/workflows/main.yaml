@@ -25,4 +25,4 @@ jobs:
           charts_url: https://kostiantyn-matsebora.github.io/helm-charts
           owner: kostiantyn-matsebora
           repository: helm-charts
-          branch: masterecho
+          branch: master
