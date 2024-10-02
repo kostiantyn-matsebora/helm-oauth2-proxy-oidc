@@ -6,7 +6,8 @@ on:
     paths:
       - 'charts/**'
   workflow_dispatch:
-      
+  pull_request:
+    types: [opened, reopened]      
 jobs:
   publish:  
     name: Verify and publish
