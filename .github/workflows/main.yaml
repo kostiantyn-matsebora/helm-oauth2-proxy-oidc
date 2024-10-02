@@ -13,8 +13,9 @@ jobs:
     name: Verify
     runs-on: ubuntu-latest
     steps:      
+      - uses: actions/checkout@v2
       - name: Copy README.md to chart        
-        run: echo $GITHUB_WORKSPACE
+        run: cp README.md charts/simple-oauth2-proxy/
       - name: Publish Helm chart
         if: github.ref == 'refs/heads/master'
         uses: stefanprodan/helm-gh-pages@master        
