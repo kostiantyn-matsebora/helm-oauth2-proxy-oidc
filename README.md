@@ -23,9 +23,9 @@ auth:
 
   # Configuration  passed to toml file
   config:
-    # OIDC application Client ID. Required for OAuth2 providers.
+    # Application Client ID. Required for OAuth2 providers.
     clientId: 
-    # OID application  Client Secret. Required for OAuth2 providers.
+    # Application  Client Secret. Required for OAuth2 providers.
     clientSecret:
     # OAuth2 scope to request. Required for OAuth2 providers.
     scope:
