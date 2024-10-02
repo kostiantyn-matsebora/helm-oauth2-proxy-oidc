@@ -10,12 +10,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    steps:
-      - uses: losisin/helm-docs-github-action@6dd725795a66c45457d6f9a7543157b9c010d77d
+    steps:   
       - name: Generate docs
-        uses: stefanprodan/helm-gh-pages@master
-        with:
-          chart-search-root: charts 
+        uses: shaybentk/helm-docs-action@v0.0.1
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@master
         with:
