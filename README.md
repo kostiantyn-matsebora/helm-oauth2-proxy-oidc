@@ -8,11 +8,12 @@ The following table lists the main configurable parameters of the oauth2-proxy c
 
 ```yaml
 
-  # OIDC configuration, all fields are required
-  # Following command line arguments are used to configure OIDC provider
+auth:
+  # OIDC configuration, all fields are required.
+  # Following command line arguments are used to configure OIDC provider.
   oidc:
     enabled: false
-    # Set it true if you are using Keycloak as OIDC provider
+    # Set it true if you are using Keycloak as OIDC provider.
     isKeyCloak: false
     # Issuer URL
     # For Authentik application looks like https://[authentik base uri]/application/o/[application name]/
@@ -21,14 +22,14 @@ The following table lists the main configurable parameters of the oauth2-proxy c
 
   # Configuration  passed to toml file
   config:
-    # OIDC application Client ID  
+    # OIDC application Client ID. Required for OAuth2 providers.
     clientId: 
-    # OID application  Client Secret
+    # OID application  Client Secret. Required for OAuth2 providers.
     clientSecret:
-    # Cookie secret https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#config-file
-    cookieSecret:
-    # OAuth2 scope to request. Default empty.
+    # OAuth2 scope to request. Required for OAuth2 providers.
     scope:
+    # Cookie secret. Required. https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#config-file
+    cookieSecret:
     # Set Authorization Bearer response header (useful in Nginx auth_request mode). Default false.
     setAuthorizationHeader:
     #  Authenticate emails with the specified domain (may be given multiple times).
