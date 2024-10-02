@@ -15,10 +15,10 @@ jobs:
         uses: tj-actions/verify-changed-files@v20
         id: verify-changed-files
         with:
-          files: |
-             **/Chart.yaml
+            files: |
+               **/Chart.yaml
       - name: Fail if Chart.yaml has not been changed
-        if: !contains(steps.verify-changed-files.outputs.changed_files, 'Chart.yaml')
+        if: contains(steps.verify-changed-files.outputs.changed_files, 'Chart.yaml')
         run: throw "Chart.yaml has not been changed."
       - name: Copy README.md to chart        
         run: cp README.md charts/simple-oauth2-proxy/
