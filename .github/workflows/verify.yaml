@@ -11,12 +11,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get changed Chart.yaml
         id: changed-chart-yaml
-        if: github.event_name != 'pull_request'
         uses: tj-actions/changed-files@v45
         with:
           files: |
             charts/**/Chart.yaml
       - name: Fail if Chart.yaml is not changed
         if: steps.changed-chart-yaml.outputs.any_changed == 'false'
-        run: throw "Chart.yaml has not been changed."  
+        run: throw "Chart.yaml has not been changed."
 
