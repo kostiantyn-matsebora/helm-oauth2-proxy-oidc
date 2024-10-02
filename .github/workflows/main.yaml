@@ -14,11 +14,12 @@ jobs:
     steps:   
       - name: Verify Changed files
         uses: tj-actions/verify-changed-files@v20.0.1
-        with:
-            files: |
-                charts/*/Chart.yaml
-            fail-if-unchanged: true
-            fail-message: 'Chart.yaml has not been changed.'
+
+      - name: List all changed tracked and untracked files
+        env:
+          CHANGED_FILES: ${{ steps.verify-changed-files.outputs.changed_files }}
+        run: |
+          echo "Changed files: $CHANGED_FILES"            
       - name: Copy README.md to chart        
         run: cp README.md charts/simple-oauth2-proxy/
         if: github.ref == 'refs/heads/master'
