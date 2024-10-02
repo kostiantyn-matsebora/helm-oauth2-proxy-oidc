@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:      
       - name: Copy README.md to chart        
-        run: echo $(ls ..)
+        run: echo $GITHUB_WORKSPACE
       - name: Publish Helm chart
         if: github.ref == 'refs/heads/master'
         uses: stefanprodan/helm-gh-pages@master        
