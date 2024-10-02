@@ -16,7 +16,7 @@ jobs:
         id: verify-changed-files
         with:
             files: |
-               simple-oauth2-proxy/Chart.yaml
+               charts/simple-oauth2-proxy/Chart.yaml
             fail-if-changed: true
             fail-message: 'Chart.yaml has not been changed'
       - name: Copy README.md to chart        
