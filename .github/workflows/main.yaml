@@ -16,7 +16,7 @@ jobs:
         uses: tj-actions/verify-changed-files@v20.0.1
         with:
             files: |
-                ./charts/*/Chart.yaml
+                charts/*/Chart.yaml
             fail-if-unchanged: true
             fail-message: 'Chart.yaml has not been changed.'
       - name: Copy README.md to chart        
