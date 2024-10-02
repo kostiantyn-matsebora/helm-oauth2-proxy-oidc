@@ -1,4 +1,4 @@
-name: Helm
+name: Publish
 
 on:
   push:
@@ -6,22 +6,23 @@ on:
     paths:
       - 'charts/**'
   workflow_dispatch:
-      
+  pull_request:
+    branches: [master]
 jobs:
-  publish:
+  publish:  
+    name: Publish
     runs-on: ubuntu-latest
-    steps:
-      - uses: losisin/helm-docs-github-action@6dd725795a66c45457d6f9a7543157b9c010d77d
-      - name: Generate docs
-        uses: stefanprodan/helm-gh-pages@master
-        with:
-          chart-search-root: charts 
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Copy README.md to chart        
+        run: cp README.md charts/simple-oauth2-proxy/
       - name: Publish Helm chart
-        uses: stefanprodan/helm-gh-pages@master
+        if: github.ref == 'refs/heads/master'
+        uses: stefanprodan/helm-gh-pages@master        
         with:
           token: ${{ secrets.HELM_BOT_GH_TOKEN }}
           charts_dir: charts
           charts_url: https://kostiantyn-matsebora.github.io/helm-charts
           owner: kostiantyn-matsebora
           repository: helm-charts
-          branch: master
+          branch: masterecho

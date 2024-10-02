@@ -1,0 +1,24 @@
+name: Verify
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'charts/**'
+    types: [opened, synchronize, reopened]
+jobs:
+  publish:  
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:   
+      - uses: actions/checkout@v2
+      - name: Get changed Chart.yaml
+        id: changed-chart-yaml
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            charts/**/Chart.yaml
+      - name: Fail if Chart.yaml is not changed
+        if: steps.changed-chart-yaml.outputs.any_changed == 'false'
+        run: throw "Chart.yaml has not been changed."
+
