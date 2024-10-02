@@ -1,0 +1,36 @@
+# Copies README.md to chart and publishes chart to helm-charts repository.
+# Requires:
+# Repository secrets: 
+# - HELM_BOT_GH_TOKEN - token with push permission to helm-charts repository
+name: Publish
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'charts/**'
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+jobs:
+  publish:  
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Copy README.md to chart        
+        run: cp README.md charts/*/
+      - uses: actions/checkout@v2
+      - name: Copy LICENSE to chart        
+        run: cp LICENSE charts/*/        
+      - name: Publish Helm chart
+        if: github.ref == 'refs/heads/master'
+        uses: stefanprodan/helm-gh-pages@master        
+        with:
+          token: ${{ secrets.HELM_BOT_GH_TOKEN }}
+          charts_dir: charts
+          charts_url: https://kostiantyn-matsebora.github.io/helm-charts
+          owner: kostiantyn-matsebora
+          repository: helm-charts
+          branch: master
+          
