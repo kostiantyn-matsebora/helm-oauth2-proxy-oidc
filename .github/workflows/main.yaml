@@ -16,9 +16,9 @@ jobs:
         uses: tj-actions/verify-changed-files@v20.0.1
         with:
             files: |
-                **/Chart.yaml
-            fail-if-changed: true
-            fail-message: 'Chart.yaml has not been changed'
+                ./charts/*/Chart.yaml
+            fail-if-unchange: true
+            fail-message: 'Chart.yaml has not been changed.'
       - name: Copy README.md to chart        
         run: cp README.md charts/simple-oauth2-proxy/
         if: github.ref == 'refs/heads/master'
