@@ -3,6 +3,8 @@ name: Verify
 on:
   pull_request:
     branches: [master]
+    paths:
+      - 'charts/**'
 jobs:
   publish:  
     name: Verify and publish
