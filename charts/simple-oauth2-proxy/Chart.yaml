@@ -1,7 +1,6 @@
 apiVersion: v2
-name: oauth2-proxy-oidc
-description: oauth2-proxy configured to use  OIDC provider for authentication
-
+name: oauth2-proxy-simple
+description: A reverse proxy and static file server that provides authentication using Providers, based on https://github.com/oauth2-proxy/oauth2-proxy
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
@@ -21,4 +20,4 @@ version: 0.2.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "7.5.1"
+appVersion: "7.6.0"

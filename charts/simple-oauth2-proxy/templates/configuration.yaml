@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "oidc-auth2.servicename" . }}
+  labels:
+  {{- include "oidc-auth2.labels" . | nindent 4 }}
+type: Opaque
+stringData: 
+    oauth2-proxy.cfg: |
+        # General configuration
+        http_address = "0.0.0.0:8091"
+        {{- if .Values.auth.oidc.enabled }}
+        client_id = "{{ required ".Values.auth.config.clientId is required" .Values.auth.config.clientId }}"
+        client_secret ="{{ required ".Values.auth.config.clientSecret is required" .Values.auth.config.clientSecret }}"
+        cookie_secret = "{{ required ".Values.auth.config.cookieSecret is required" .Values.auth.config.cookieSecret }}"
+        {{- end }}
+        {{- if .Values.auth.config.scope }}
+        scope = "{{ .Values.auth.config.scope }}"
+        {{- end }}
+        {{- if .Values.auth.config.emailDomain }}
+        email_domains = ["{{ .Values.auth.config.emailDomain }}"]
+        {{- end }}
+        {{- if .Values.auth.config.cookieRefresh }}
+        cookie_refresh = "{{ .Values.auth.config.cookieRefresh }}"
+        {{- end }}
+        {{- if .Values.auth.config.cookieExpire }}
+        cookie_expire = "{{ .Values.auth.config.cookieExpire }}"
+        {{- end }}
+        {{- if .Values.auth.config.setAuthorizationHeader }}
+        set_authorization_header = {{ .Values.auth.config.setAuthorizationHeader }}
+        {{- end }}
+        {{- if .Values.auth.config.codeChallengeMethod }}
+        code_challenge_method = "{{ .Values.auth.config.codeChallengeMethod }}"
+        {{- end }}
+        
+        {{- if .Values.auth.oidc.enabled }}
+        ## OIDC specific configuration
+        {{- if .Values.auth.oidc.isKeyCloak }} 
+        provider = "cloak-oidc"
+        {{- else }}
+        provider = "oidc"
+        {{- end }}
+        oidc_issuer_url = "{{ required ".Values.auth.oidc.issuerUrl is required"  .Values.auth.oidc.issuerUrl }}"
+        {{- end }}
+
+        # Extra configuration
+        {{- with .Values.auth.extraConfig }}
+        {{ . | nindent 8 }}
+        {{- end }}
+

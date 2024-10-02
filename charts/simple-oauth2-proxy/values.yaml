@@ -1,0 +1,100 @@
+# Default values for oidc-auth2.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: bitnami/oauth2-proxy
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "7.6.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+service:
+  type: ClusterIP
+  port: 8091
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: 
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+  # Put host of original application here
+  host: 
+
+resources: 
+  limits:
+    cpu: 100m
+    memory: 48Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+auth:
+  # OIDC configuration, all fields are required
+  # Following command line arguments are used to configure OIDC provider
+  oidc:
+    enabled: false
+    # Set it true if you are using Keycloak as OIDC provider
+    isKeyCloak: false
+    # Issuer URL
+    # For Authentik application looks like https://[authentik base uri]/application/o/[application name]/
+    # For Hashicorp Vault looks like https://[vault url]/v1/identity/oidc/provider/[provider name]
+    issuerUrl: 
+
+  # Configuration  passed to toml file
+  config:
+    # OIDC application Client ID  
+    clientId: 
+    # OID application  Client Secret
+    clientSecret:
+    # Cookie secret https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#config-file
+    cookieSecret:
+    # Set Authorization Bearer response header (useful in Nginx auth_request mode). Default false.
+    scope:
+    #  Authenticate emails with the specified domain (may be given multiple times).
+    #  Use * to authenticate any email. Default empty.
+    setAuthorizationHeader:
+    # OAuth2 scope to request. Default empty.
+    emailDomain:
+    # Refresh the cookie after this duration; 0 to disable; not supported by all providers. Default empty
+    cookieRefresh:
+    # Expire the cookie after this duration; 0 to expire with browser session; not supported by all providers. Default 168h0m0s
+    cookieExpire:
+    # use PKCE code challenges with the specified method. Either 'plain' or 'S256' (recommended). Default empty
+    codeChallengeMethod:
+
+# Extra configuration added to toml configuration file, more information you can find here https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview,
+# Example: 
+# extraConfig: |
+#   cookie_domain = "example.com"
+#   cookie_path = "/"
+#   ...
+#
+# Consider using it if you can use it to define any other provider than OIDC
+  extraConfig:
+
+# Name of the runtime class to use for this pod https://kubernetes.io/docs/concepts/containers/runtime-class/  
+runtimeClassName:

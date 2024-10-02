@@ -7,9 +7,21 @@ metadata:
   annotations:
     "helm.sh/hook": test
 spec:
+  serviceAccountName: {{ include "oidc-auth2.serviceAccountName" . }}
+  automountServiceAccountToken: false
+  serviceAccountName: {{ include "oidc-auth2.serviceAccountName" . }}
   containers:
     - name: wget
       image: busybox
       command: ['wget']
       args: ['{{ include "oidc-auth2.fullname" . }}:{{ .Values.service.port }}']
+      resources:
+        requests:
+          ephemeral-storage:  1Mi
+          cpu: 50m
+          memory: 16Mi
+        limits:
+          ephemeral-storage: 10Mi
+          cpu: 100m
+          memory: 32Mi
   restartPolicy: Never
