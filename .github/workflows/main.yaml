@@ -12,14 +12,16 @@ jobs:
     name: Verify and publish
     runs-on: ubuntu-latest
     steps:   
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v20.0.1
-
-      - name: List all changed tracked and untracked files
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+      - name: List all changed files
         env:
-          CHANGED_FILES: ${{ steps.verify-changed-files.outputs.changed_files }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
-          echo "Changed files: $CHANGED_FILES"            
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
       - name: Copy README.md to chart        
         run: cp README.md charts/simple-oauth2-proxy/
         if: github.ref == 'refs/heads/master'
