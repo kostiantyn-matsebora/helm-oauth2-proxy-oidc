@@ -12,7 +12,7 @@ spec:
   serviceAccountName: {{ include "oidc-auth2.serviceAccountName" . }}
   containers:
     - name: wget
-      image: busybox
+      image: busybox:1.37.0
       command: ['wget']
       args: ['{{ include "oidc-auth2.fullname" . }}:{{ .Values.service.port }}']
       resources:
