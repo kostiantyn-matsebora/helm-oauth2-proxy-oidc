@@ -1,5 +1,6 @@
 # Simple OAuth2 Proxy Helm Chart
-
+ [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kostiantyn-matsebora_helm-oauth2-proxy-oidc&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kostiantyn-matsebora_helm-oauth2-proxy-oidc)
+ 
 Simplified helm chart for deploying and configuring [oauth2-proxy] provides a way to configure `OIDC provider` as any other OAuth2 provider supported by application.
 
 ## Configuration
