@@ -13,19 +13,18 @@ jobs:
     name: Verify and publish
     runs-on: ubuntu-latest
     steps:   
-      - name: Get changed files
-        id: changed-files
+      - name: Get changed Chart.yaml
+        id: changed-chart-yaml
+        if: github.event_name != 'pull_request'
         uses: tj-actions/changed-files@v45
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
+        with:
+          files: |
+            charts/**/Chart.yaml
+      - name: Fail if Chart.yaml is not changed
+        if: github.event_name != 'pull_request' && steps.changed-chart-yaml.outputs.any_changed == 'false'
+        run: fail "Chart.yaml has not been changed        
       - name: Copy README.md to chart        
         run: cp README.md charts/simple-oauth2-proxy/
-        if: github.ref == 'refs/heads/master'
       - name: Publish Helm chart
         if: github.ref == 'refs/heads/master'
         uses: stefanprodan/helm-gh-pages@master        
