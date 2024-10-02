@@ -11,7 +11,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: losisin/helm-docs-github-action@6dd725795a66c45457d6f9a7543157b9c010d77d
+      - name: Generate docs
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          chart-search-root: charts 
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@master
         with:
