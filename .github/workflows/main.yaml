@@ -7,7 +7,7 @@ on:
       - 'charts/**'
   workflow_dispatch:
   pull_request:
-    types: [opened, reopened]      
+    branches: [master]
 jobs:
   publish:  
     name: Verify and publish
