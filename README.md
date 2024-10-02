@@ -1,5 +1,6 @@
 # Simple OAuth2 Proxy Helm Chart
-
+ [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kostiantyn-matsebora_helm-oauth2-proxy-oidc&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kostiantyn-matsebora_helm-oauth2-proxy-oidc)
+ 
 Simplified helm chart for deploying and configuring [oauth2-proxy] provides a way to configure `OIDC provider` as any other OAuth2 provider supported by application.
 
 ## Configuration
@@ -8,11 +9,12 @@ The following table lists the main configurable parameters of the oauth2-proxy c
 
 ```yaml
 
-  # OIDC configuration, all fields are required
-  # Following command line arguments are used to configure OIDC provider
+auth:
+  # OIDC configuration, all fields are required.
+  # Following command line arguments are used to configure OIDC provider.
   oidc:
     enabled: false
-    # Set it true if you are using Keycloak as OIDC provider
+    # Set it true if you are using Keycloak as OIDC provider.
     isKeyCloak: false
     # Issuer URL
     # For Authentik application looks like https://[authentik base uri]/application/o/[application name]/
@@ -21,14 +23,14 @@ The following table lists the main configurable parameters of the oauth2-proxy c
 
   # Configuration  passed to toml file
   config:
-    # OIDC application Client ID  
+    # OIDC application Client ID. Required for OAuth2 providers.
     clientId: 
-    # OID application  Client Secret
+    # OID application  Client Secret. Required for OAuth2 providers.
     clientSecret:
-    # Cookie secret https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#config-file
-    cookieSecret:
-    # OAuth2 scope to request. Default empty.
+    # OAuth2 scope to request. Required for OAuth2 providers.
     scope:
+    # Cookie secret. Required. https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/#config-file
+    cookieSecret:
     # Set Authorization Bearer response header (useful in Nginx auth_request mode). Default false.
     setAuthorizationHeader:
     #  Authenticate emails with the specified domain (may be given multiple times).
@@ -95,7 +97,7 @@ Install/upgrade helm chart using your custom values (for instance storage-provis
 ```bash
 
 # oauth2-proxy
-helm upgrade oauth2-proxy kostiantyn-matsebora/oauth2-proxy-simple --install --values ./custom-values.yaml
+helm upgrade oauth2-proxy kostiantyn-matsebora/simple-oauth2-proxy --install --values ./custom-values.yaml
 
 ```
 
