@@ -29,13 +29,14 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "oidc-auth2.serviceAccountName" . }}
+      automountServiceAccountToken: false
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: oauth2-proxy
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "7.6.0" }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -50,17 +51,19 @@ spec:
               path: /ready
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            requests:
+              ephemeral-storage:  {{ index  .Values.resources.requests "ephemeral-storage"  | default "1Mi" }}
+              cpu: {{ .Values.resources.requests.cpu | default "100m" }}
+              memory: {{ .Values.resources.requests.memory | default "128Mi" }}
+            limits:
+              ephemeral-storage:  {{ index  .Values.resources.limits "ephemeral-storage" | default "10Mi" }}
+              cpu: {{ .Values.resources.limits.cpu | default "100m" }}
+              memory: {{ .Values.resources.limits.memory | default "128Mi"  }}
+          volumeMounts:
+            - mountPath: /etc/oauth2-proxy
+              name: config
           args:
-            - --provider=oidc
-            - --client-id={{ .Values.oidc.clientId }}
-            - --client-secret={{ .Values.oidc.clientSecret }}
-            - --cookie-secret={{ .Values.oidc.cookieSecret }}
-            - --oidc-issuer-url={{ .Values.oidc.issuerUrl }}
-            - --http-address=0.0.0.0:8091
-            {{- with .Values.oidc.extraArgs }}
-            {{ toYaml . | nindent 12 }}
-            {{- end }}             
+            - --config=/etc/oauth2-proxy/oauth2-proxy.cfg
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -73,3 +76,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: config
+          secret:
+            secretName: {{ include "oidc-auth2.servicename" . }}
