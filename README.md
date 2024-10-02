@@ -107,8 +107,8 @@ If you experience any issues, have a question or a suggestion, or if you wish
 to contribute, feel free to [open an issue][issues] or
 [start a discussion][discussions].
 
-[issues]: https://github.com/kostiantyn-matsebora/simple-oauth2-proxy/issues
-[discussions]: https://github.com/kostiantyn-matsebora/simple-oauth2-proxy/discussions
+[issues]: https://github.com/kostiantyn-matsebora/helm-simple-oauth2-proxy/issues
+[discussions]: https://github.com/kostiantyn-matsebora/helm-simple-oauth2-proxy/discussions
 
 ## License
 
