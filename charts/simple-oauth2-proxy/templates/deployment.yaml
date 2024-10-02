@@ -52,11 +52,11 @@ spec:
               port: http
           resources:
             requests:
-              ephemeral-storage:  {{index  .Values.resources.requests "ephemeral-storage"  | default "1Mi" }}
+              ephemeral-storage:  {{ index  .Values.resources.requests "ephemeral-storage"  | default "1Mi" }}
               cpu: {{ .Values.resources.requests.cpu | default "100m" }}
               memory: {{ .Values.resources.requests.memory | default "128Mi" }}
             limits:
-              ephemeral-storage:  {{index  .Values.resources.limits "ephemeral-storage" | default "10Mi" }}
+              ephemeral-storage:  {{ index  .Values.resources.limits "ephemeral-storage" | default "10Mi" }}
               cpu: {{ .Values.resources.limits.cpu | default "100m" }}
               memory: {{ .Values.resources.limits.memory | default "128Mi"  }}
           volumeMounts:

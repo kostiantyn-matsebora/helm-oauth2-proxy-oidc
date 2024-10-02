@@ -14,7 +14,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ include "oidc-auth2.servicename" .}}
+  name: {{ include "oidc-auth2.servicename" . }}
   labels:
     {{- include "oidc-auth2.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
