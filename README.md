@@ -96,7 +96,7 @@ Install/upgrade helm chart using your custom values (for instance storage-provis
 ```bash
 
 # oauth2-proxy
-helm upgrade oauth2-proxy kostiantyn-matsebora/oauth2-proxy-simple --install --values ./custom-values.yaml
+helm upgrade oauth2-proxy kostiantyn-matsebora/simple-oauth2-proxy --install --values ./custom-values.yaml
 
 ```
 
