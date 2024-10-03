@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: bitnami/oauth2-proxy
+  repository: quay.io/oauth2-proxy/oauth2-proxy
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "7.6.0"
+  tag: "v7.7.0"
 
 imagePullSecrets: []
 nameOverride: ""
